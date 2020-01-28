@@ -46,7 +46,7 @@ class GeneratePins extends React.Component {
     </View>
     </View>
   );
-    }
+  }
 
     numberSave = async () => {
       var valuePins = this.state.oneNumber+this.state.twoNumber+this.state.threeNumber+this.state.fourNumber+this.state.fiveNumber;
@@ -71,8 +71,6 @@ class GeneratePins extends React.Component {
        for(i=0;i<5;i++){
         this.random4Digit();
        }
-       console.log("numbers==>",this.numbers);
-  
         this.setState({ oneNumber:this.numbers[0]});
         this.setState({ twoNumber:this.numbers[1]});
         this.setState({ threeNumber:this.numbers[2]});
@@ -82,13 +80,10 @@ class GeneratePins extends React.Component {
      }
      random4Digit(){
        var number= this.shuffle( "0123456789".split('') ).join('').substring(0,4);
-      //console.log(val);
       if(this.checkSequence(number)==true){
-        console.log("true==>",number) 
        this.random4Digit();
       }
       else{
-       console.log("False==>",number) 
       this.numbers.push(number);
       }
     }
