@@ -12,8 +12,10 @@ class GeneratePins extends React.Component {
         twoNumber: '',
         threeNumber:'',
         fourNumber: '',
-        fiveNumber:''
+        fiveNumber:'',
       };
+      this.numbers=[];
+
     }
     render() {
       
@@ -65,22 +67,48 @@ class GeneratePins extends React.Component {
        }
     }}
      numberGenerate(){
-      this.setState({ oneNumber:this.random4Digit()});
-      this.setState({ twoNumber:this.random4Digit()});
-      this.setState({ threeNumber:this.random4Digit()});
-      this.setState({ fourNumber:this.random4Digit()});
-      this.setState({ fiveNumber:this.random4Digit()});
+       this.numbers=[];
+       for(i=0;i<5;i++){
+        this.random4Digit();
+       }
+       console.log("numbers==>",this.numbers);
+  
+        this.setState({ oneNumber:this.numbers[0]});
+        this.setState({ twoNumber:this.numbers[1]});
+        this.setState({ threeNumber:this.numbers[2]});
+        this.setState({ fourNumber:this.numbers[3]});
+        this.setState({ fiveNumber:this.numbers[4]});
       
      }
      random4Digit(){
-      return this.shuffle( "0123456789".split('') ).join('').substring(0,4);
+       var number= this.shuffle( "0123456789".split('') ).join('').substring(0,4);
+      //console.log(val);
+      if(this.checkSequence(number)==true){
+        console.log("true==>",number) 
+       this.random4Digit();
+      }
+      else{
+       console.log("False==>",number) 
+      this.numbers.push(number);
+      }
     }
     
      shuffle(o){
         for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
         return o;
     }
-}
+    checkSequence  (num) {
+      var arr_num = ('' + num).split('');
+     for (var i = 0; i < arr_num.length - 1; i++) {
+       if (((parseInt(arr_num[i]) >= parseInt(arr_num[i + 1])) &&
+       ((parseInt(arr_num[i+1]) >= parseInt(arr_num[i + 2])))) ||
+       ((parseInt(arr_num[i]) <= parseInt(arr_num[i + 1])) &&((parseInt(arr_num[i+1]) <= parseInt(arr_num[i + 2]))))
+       || (parseInt(arr_num[i]) == parseInt(arr_num[i + 1])))
+         return true;
+     }
+     return false;
+  }
+  }
 
 const styles = StyleSheet.create({
   superContainer: {
