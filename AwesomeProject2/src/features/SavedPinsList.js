@@ -1,9 +1,9 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View ,TouchableOpacity,Modal} from 'react-native';
 import {connect} from 'react-redux'
-import Pin from './Pin'
+import Pin from '../components/Pin'
 import AsyncStorage from '@react-native-community/async-storage';
-import DialogInput from './DialogInput'
+import DialogInput from '../components/DialogInput'
 
 class SavedPinsList extends React.Component {
 

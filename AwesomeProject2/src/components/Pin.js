@@ -11,9 +11,9 @@ export default class Pin extends React.Component {
     render(){
         return (
         <View style={{flex:1}}>
-           <TouchableOpacity style={styles.pinBox}>
+           <View style={styles.pinBox}>
              <Text>{this.props.text}</Text>
-           </TouchableOpacity>
+           </View>
         </View>
         )
     }

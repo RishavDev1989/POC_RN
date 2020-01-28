@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux'
-import Pin from './Pin'
+import Pin from '../components/Pin'
 import AsyncStorage from '@react-native-community/async-storage';
 
 class GeneratePins extends React.Component {
@@ -25,7 +25,7 @@ class GeneratePins extends React.Component {
        <TouchableOpacity style={styles.savedBtnStyles} onPress={() => this.props.navigation.navigate('Saved')}>
          <Text style={{fontSize:18,fontWeight:'bold'}}>Saved</Text>
        </TouchableOpacity>
-       <Image source={require('./rightArrow.png')} style={{width:30,height:30}}/>
+       <Image source={require('../assets/rightArrow.png')} style={{width:30,height:30}}/>
        </View>
     <View style={styles.superContainer}>
         <View style={styles.pinsContainer}>
