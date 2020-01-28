@@ -79,6 +79,7 @@ reloadName=async()=>{
             submitText='Update'
             closeDialog={()=>{this.showDialog()}}/>
       </Modal>
+      {this.props.pinValues.length>0?
         <FlatList
           data={this.state.mainData}
           ItemSeparatorComponent={this.FlatListItemSeparator}
@@ -100,9 +101,9 @@ reloadName=async()=>{
         <TouchableOpacity style={{backgroundColor:'red',marginLeft:5,borderRadius: 2,borderWidth: 2,borderColor:'red',
          }} onPress={() => this.deleteRecord(item['PIN_KEY'])}>
         <Text style={{color:'white',fontWeight:'bold'}}>DELETE</Text>
-        </TouchableOpacity>:null}
+        </TouchableOpacity>:<Text style={{fontSize:25}}>No pin Saved</Text>}
         </View>
-      }/>
+      }/>:<View style={{alignItems: 'center',justifyContent: 'center'}}><Text style={{fontSize:25}}>No pin Saved</Text></View>}
       </View>
     );
   }
@@ -128,7 +129,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) =>{
   return {
     pinValues:state.pinValues,
-    pinNames:state.pinNames
   }
 }
 const mapDispatchToProps = (dispatch)=>{
