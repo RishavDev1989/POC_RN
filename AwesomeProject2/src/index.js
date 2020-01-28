@@ -1,7 +1,7 @@
 import React from 'react';
 import {createAppContainer} from "react-navigation";
-import GeneratePins from './features/GeneratePins';
-import SavedPinsList from './features/SavedPinsList';
+import GeneratePins from './features/generatePins';
+import SavedPinsList from './features/savedPinsList';
 import {createStackNavigator} from "react-navigation-stack";
 
 

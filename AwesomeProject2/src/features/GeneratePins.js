@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux'
-import Pin from '../components/Pin'
+import Pin from '../components/pin'
 import AsyncStorage from '@react-native-community/async-storage';
 
 class GeneratePins extends React.Component {
