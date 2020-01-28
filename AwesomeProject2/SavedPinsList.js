@@ -2,8 +2,8 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View ,TouchableOpacity,Modal} from 'react-native';
 import {connect} from 'react-redux'
 import Pin from './Pin'
-import DialogInput from 'react-native-dialog-input'
 import AsyncStorage from '@react-native-community/async-storage';
+import DialogInput from './DialogInput'
 
 class SavedPinsList extends React.Component {
 
@@ -28,8 +28,8 @@ updateName = async (item) => {
   this.setState({selectPinValue:item});
     try {
     const value = await AsyncStorage.getItem(item);
-    this.setState({modalVisible:true});
     this.setState({selectUpdateValue:value});
+    this.setState({modalVisible:true});
     }catch (error){
     }
  }
@@ -73,9 +73,9 @@ reloadName=async()=>{
         <DialogInput isDialogVisible={this.state.isDialogVisible}
             title={"Update the value"}
             message={""}
-            hintInput ={this.state.selectPinValue}
+            hintInput ={this.state.selectUpdateValue}
             submitInput={(inputText)=>{this.sendInput(inputText)}}
-            cancelText='Cancel'
+            //cancelText='Cancel'
             submitText='Update'
             closeDialog={()=>{this.showDialog()}}/>
       </Modal>
@@ -86,7 +86,7 @@ reloadName=async()=>{
           renderItem={({item}) =>
          <View style={styles.container2}>   
         {item['PIN_KEY'] ? <TouchableOpacity
-           style={{ height:40,width:'12%',borderColor:'red',borderWidth:1}}
+           style={{ height:40,width:'12%',borderColor:'gray',borderWidth:1}}
            onPress={() => this.updateName(item['PIN_KEY'])}
          >
         <Text>{item['NAME_KEY']}</Text>

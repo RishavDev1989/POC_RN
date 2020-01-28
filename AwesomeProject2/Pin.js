@@ -28,7 +28,7 @@ export default class Pin extends React.Component {
       paddingLeft:5,
       paddingRight: 10,
       paddingTop: 5,
-      borderColor: 'black',
+      borderColor: 'gray',
       height: 40,
       marginLeft:5,
     }
