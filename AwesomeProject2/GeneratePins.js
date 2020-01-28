@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux'
 import Pin from './Pin'
+import AsyncStorage from '@react-native-community/async-storage';
 
 class GeneratePins extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class GeneratePins extends React.Component {
       };
     }
     render() {
+      
     return (
     <View style={{flexDirection:'column',flex:1}}>
       <View style={{flexDirection:'row',height:40,width:'100%',backgroundColor:'transparent',borderRadius: 2,borderWidth: 2,borderColor: 'black'}}>
@@ -43,7 +45,8 @@ class GeneratePins extends React.Component {
     </View>
   );
     }
-    numberSave(){
+
+    numberSave = async () => {
       var valuePins = this.state.oneNumber+this.state.twoNumber+this.state.threeNumber+this.state.fourNumber+this.state.fiveNumber;
       if(valuePins.length==0){
         alert("Empty pins are not allowed to saved");
@@ -52,6 +55,10 @@ class GeneratePins extends React.Component {
       var index = this.props.pinValues.indexOf(valuePins);
        if(index==-1){
        this.props.addValue(valuePins);
+       try {
+        await AsyncStorage.setItem(valuePins,'Name')
+      } catch (e) {
+      }
        }
        else{
          alert("Duplicate PINS not allow for re-save");

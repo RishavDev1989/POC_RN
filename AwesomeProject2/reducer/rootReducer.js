@@ -7,12 +7,12 @@ const rootReducer = (state=initState,action)=>{
     return {
         ...state,
         pinValues:newids,
+
     }
 }
 else  if(action.type === 'DELETEVALUE'){
     let newids = [...state.pinValues];
     var index = newids.indexOf(action.id);
-    console.log("indexxxx",index);
     newids.splice(index,1);
     return {
         ...state,
