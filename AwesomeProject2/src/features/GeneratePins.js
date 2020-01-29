@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux'
 import Pin from '../components/pin'
-import AsyncStorage from '@react-native-community/async-storage';
 
 class GeneratePins extends React.Component {
     constructor(props) {
@@ -47,61 +46,58 @@ class GeneratePins extends React.Component {
     </View>
   );
   }
-
-    numberSave = async () => {
-      var valuePins = this.state.oneNumber+this.state.twoNumber+this.state.threeNumber+this.state.fourNumber+this.state.fiveNumber;
-      if(valuePins.length==0){
-        alert("Empty pins are not allowed to saved");
-
+  numberSave(){
+      var valuePins = 'Name#'+this.state.oneNumber+this.state.twoNumber+this.state.threeNumber+this.state.fourNumber+this.state.fiveNumber;
+      if(valuePins.length<=5){
+      alert("Empty pins are not allowed to saved");
       }else{
-      var index = this.props.pinValues.indexOf(valuePins);
-       if(index==-1){
-       this.props.addValue(valuePins);
-       try {
-        await AsyncStorage.setItem(valuePins,'Name')
-      } catch (e) {
+       var savedPin=[];
+       for(i=0;i<this.props.pinValues.length;i++){
+       var arrayPinNameStr = this.props.pinValues[i].split("#",2);
+       savedPin.push(arrayPinNameStr[1]);
       }
-       }
-       else{
-         alert("Duplicate PINS not allow for re-save");
-       }
-    }}
-     numberGenerate(){
+      var arrayNewPinNameStr = valuePins.split("#",2);
+      var index = savedPin.indexOf(arrayNewPinNameStr[1]);
+      if(index==-1){
+      this.props.addValue(valuePins);
+      }
+      else{
+      alert("Same PINS not allow for re-save");
+      }
+ }}
+  numberGenerate(){
        this.numbers=[];
        for(i=0;i<5;i++){
         this.random4Digit();
        }
-        this.setState({ oneNumber:this.numbers[0]});
-        this.setState({ twoNumber:this.numbers[1]});
-        this.setState({ threeNumber:this.numbers[2]});
-        this.setState({ fourNumber:this.numbers[3]});
-        this.setState({ fiveNumber:this.numbers[4]});
-      
-     }
-     random4Digit(){
+       this.setState({ oneNumber:this.numbers[0]});
+       this.setState({ twoNumber:this.numbers[1]});
+       this.setState({ threeNumber:this.numbers[2]});
+       this.setState({ fourNumber:this.numbers[3]});
+       this.setState({ fiveNumber:this.numbers[4]});
+  }
+  random4Digit(){
        var number= this.shuffle( "0123456789".split('') ).join('').substring(0,4);
       if(this.checkSequence(number)==true){
        this.random4Digit();
-      }
-      else{
+      }else{
       this.numbers.push(number);
       }
-    }
-    
-     shuffle(o){
-        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-        return o;
-    }
-    checkSequence  (num) {
-      var arr_num = ('' + num).split('');
-     for (var i = 0; i < arr_num.length - 1; i++) {
-       if (((parseInt(arr_num[i]) >= parseInt(arr_num[i + 1])) &&
+  }
+  shuffle(o){
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+  }
+  checkSequence  (num) {
+    var arr_num = ('' + num).split('');
+    for (var i = 0; i < arr_num.length - 1; i++) {
+    if (((parseInt(arr_num[i]) >= parseInt(arr_num[i + 1])) &&
        ((parseInt(arr_num[i+1]) >= parseInt(arr_num[i + 2])))) ||
        ((parseInt(arr_num[i]) <= parseInt(arr_num[i + 1])) &&((parseInt(arr_num[i+1]) <= parseInt(arr_num[i + 2]))))
        || (parseInt(arr_num[i]) == parseInt(arr_num[i + 1])))
-         return true;
+       return true;
      }
-     return false;
+       return false;
   }
   }
 
