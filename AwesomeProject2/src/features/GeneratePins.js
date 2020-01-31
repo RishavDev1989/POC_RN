@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity,Image} from 'react-native';
 import {connect} from 'react-redux'
 import Pin from '../components/pin'
-
+import numberGenerate from '../components/createPins'
 class GeneratePins extends React.Component {
     constructor(props) {
       super(props);
@@ -35,7 +35,7 @@ class GeneratePins extends React.Component {
           <Pin text={this.state.fiveNumber}/>
         </View>
         <View style={styles.buttonContainer}>
-           <TouchableOpacity style={styles.btnStyles} onPress={() => this.numberGenerate()}>
+           <TouchableOpacity style={styles.btnStyles} onPress={() => this.generatePIN()}>
              <Text>GENERATE</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.btnStyles} onPress={() => this.numberSave()} > 
@@ -65,40 +65,16 @@ class GeneratePins extends React.Component {
       alert("Same PINS not allow for re-save");
       }
  }}
-  numberGenerate(){
+  generatePIN(){
        this.numbers=[];
-       for(i=0;i<5;i++){
-        this.random4Digit();
-       }
-       this.setState({ oneNumber:this.numbers[0]});
-       this.setState({ twoNumber:this.numbers[1]});
-       this.setState({ threeNumber:this.numbers[2]});
-       this.setState({ fourNumber:this.numbers[3]});
-       this.setState({ fiveNumber:this.numbers[4]});
+      var arrDev= numberGenerate(5)
+       this.setState({ oneNumber:arrDev[0]});
+       this.setState({ twoNumber:arrDev[1]});
+       this.setState({ threeNumber:arrDev[2]});
+       this.setState({ fourNumber:arrDev[3]});
+       this.setState({ fiveNumber:arrDev[4]});
   }
-  random4Digit(){
-       var number= this.shuffle( "0123456789".split('') ).join('').substring(0,4);
-      if(this.checkSequence(number)==true){
-       this.random4Digit();
-      }else{
-      this.numbers.push(number);
-      }
-  }
-  shuffle(o){
-  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
-  }
-  checkSequence  (num) {
-    var arr_num = ('' + num).split('');
-    for (var i = 0; i < arr_num.length - 1; i++) {
-    if (((parseInt(arr_num[i]) >= parseInt(arr_num[i + 1])) &&
-       ((parseInt(arr_num[i+1]) >= parseInt(arr_num[i + 2])))) ||
-       ((parseInt(arr_num[i]) <= parseInt(arr_num[i + 1])) &&((parseInt(arr_num[i+1]) <= parseInt(arr_num[i + 2]))))
-       || (parseInt(arr_num[i]) == parseInt(arr_num[i + 1])))
-       return true;
-     }
-       return false;
-  }
+
   }
 
 const styles = StyleSheet.create({
