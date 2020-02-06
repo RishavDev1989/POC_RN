@@ -67,7 +67,7 @@ class GeneratePins extends React.Component {
  }}
   generatePIN(){
        this.numbers=[];
-      var arrDev= numberGenerate(5)
+       var arrDev= numberGenerate(5);
        this.setState({ oneNumber:arrDev[0]});
        this.setState({ twoNumber:arrDev[1]});
        this.setState({ threeNumber:arrDev[2]});
