@@ -1,34 +1,37 @@
 var numbers=[];
-export default  numberGenerate = (numberOfPins) => {
+export default  pinNumbersGenerateArray = (numberOfPins) => {
   numbers=[];
     for(i=0;i<numberOfPins;i++){
-     random4Digit(numberOfPins);
+      createRandomNumberWithFourDigit(numberOfPins);
     }
     return numbers;
 }
-function random4Digit(numberOfPins){
-    var number= shuffle( "0123456789".split('') ).join('').substring(0,4);
-   if(checkSequence(number)==true){
-    random4Digit();
+
+function createRandomNumberWithFourDigit(numberOfPins) {
+
+   var number= shufflePinNumbers( "0123456789".split('') ).join('').substring(0,4);
+   if(checkSequenceOfDigits(number)==true){
+   createRandomNumberWithFourDigit();
    }else{
    numbers.push(number);
    if(numberOfPins==numbers.length){
-     console.log("DevRishav",numbers);
-    return numbers;
+   return numbers;
    }
    }
 }
-function shuffle(o){
-for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-   return o;
+//
+function shufflePinNumbers(number) {
+   for(var j, x, i = number.length; i; j = Math.floor(Math.random() * i), x = number[--i], number[i] = number[j], number[j] = x);
+   return number;
 }
-function checkSequence  (num) {
- var arr_num = ('' + num).split('');
- for (var i = 0; i < arr_num.length - 1; i++) {
- if (((parseInt(arr_num[i]) >= parseInt(arr_num[i + 1])) &&
-    ((parseInt(arr_num[i+1]) >= parseInt(arr_num[i + 2])))) ||
-    ((parseInt(arr_num[i]) <= parseInt(arr_num[i + 1])) &&((parseInt(arr_num[i+1]) <= parseInt(arr_num[i + 2]))))
-    || (parseInt(arr_num[i]) == parseInt(arr_num[i + 1])))
+//Check the nunber according to bussiness requirement
+function checkSequenceOfDigits(number) {
+ var arr_number = ('' + number).split('');
+ for (var i = 0; i < arr_number.length - 1; i++) {
+ if (((parseInt(arr_number[i]) >= parseInt(arr_number[i + 1])) &&
+    ((parseInt(arr_number[i+1]) >= parseInt(arr_number[i + 2])))) ||
+    ((parseInt(arr_number[i]) <= parseInt(arr_number[i + 1])) &&((parseInt(arr_number[i+1]) <= parseInt(arr_number[i + 2]))))
+    || (parseInt(arr_number[i]) == parseInt(arr_number[i + 1])))
     return true;
   }
     return false;
